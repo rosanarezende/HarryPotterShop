@@ -5,8 +5,6 @@ import Carrinho from './Carrinho';
 import { LISTADEPRODUTOS } from '../../Shared/listaDeProdutos';
 
 const HomeContainer = styled.div`
-  width: 98vw;
-  min-height: 79vw;
   padding: 1vh 1vw;
   display: flex;
   flex-direction: column;
@@ -40,7 +38,6 @@ const BotaoCarrinho = styled.button`
 `
 
 const DivProdutos = styled.div`
-  min-width: 78vw;
   padding: 1vh 1vw;
   display: flex;
   flex-wrap: wrap;
@@ -50,7 +47,7 @@ const DivCadaProduto = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 15vw;
+  width: 14vw;
   margin: 1vh 1vw;
   padding: 1vh 1vw;
   border: 1px rgb(97, 46, 65) double;
@@ -80,7 +77,9 @@ const SpanDesconto = styled.span`
   padding: 0.5vh 0.5vw;
 `
 
+
 const listaDeProdutos = LISTADEPRODUTOS
+
 
 class Home extends React.Component {
 
@@ -103,7 +102,18 @@ class Home extends React.Component {
 
   render() {
 
-    const listaCadaItem = listaDeProdutos.map(cadaProduto => {
+    let listaOrdenada
+    if (this.state.ordem === 'crescente') {
+      listaOrdenada = listaDeProdutos.sort(function (a, b) {
+        return a.value < b.value ? -1 : a.value > b.value ? 1 : 0
+      })
+    } else if (this.state.ordem === 'decrescente') {
+      listaOrdenada = listaDeProdutos.sort(function (a, b) {
+        return a.value < b.value ? 1 : a.value > b.value ? -1 : 0
+      })
+    }
+
+    const listaCadaItem = listaOrdenada.map(cadaProduto => {
       return (
         <DivCadaProduto key={cadaProduto.id}>
           <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name}/>
@@ -117,7 +127,8 @@ class Home extends React.Component {
           
         </DivCadaProduto>
       )
-    })
+    })    
+
   
     return (
     <HomeContainer>

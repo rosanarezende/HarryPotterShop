@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 
 const CarrinhoContainer = styled.div`
-  width: 25vw;
+  width: 35vw;
   border: 1px solid rgb(97, 46, 65);
   padding: 1vh 1vw;
   margin-left: 1vw;
