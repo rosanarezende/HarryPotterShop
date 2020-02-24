@@ -1,6 +1,6 @@
 # Projeto: Harry Potter Shop
 
-[Site do projeto](xx)
+[Site do projeto](http://hp-shop1.surge.sh/)
 
 ![futureforms](xx)
 
@@ -10,6 +10,3 @@
 ## Escopo do projeto
 Criar o frontend web de um ECommerce com React.
 <br><br>
-
-
-
