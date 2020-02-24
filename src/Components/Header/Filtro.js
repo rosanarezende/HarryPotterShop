@@ -14,15 +14,43 @@ const FiltroContainer = styled.div`
     }
 `
 
+class Filtro extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      valueBusca: '',
+      valueValorMax: '',
+      valueValorMin: ''
+    }
+  }
 
-function Filtro() {
-  return (
-    <FiltroContainer>
-      <input type='text' placeholder='Digite o que você procura'/>
-      <input type='text' placeholder='Digite o valor mínimo'/>
-      <input type='text' placeholder='Digite o valor máximo'/>
-    </FiltroContainer>
-  );
+  mudaValueBusca = (event) => {
+    let novoValor = event.target.value
+    this.setState({valueBusca: novoValor})
+    this.props.aoMudarFiltro('novoValorBusca', novoValor)
+  }
+
+  mudaValueValorMin = (event) => {
+    let novoValor = event.target.value
+    this.setState({valueValorMin: novoValor})
+    this.props.aoMudarFiltro('novoValorMin', novoValor)
+  }
+
+  mudaValueValorMax = (event) => {
+    let novoValor = event.target.value
+    this.setState({valueValorMax: novoValor})
+    this.props.aoMudarFiltro('novoValorMax', novoValor)
+  }
+
+  render() {
+    return (
+      <FiltroContainer>
+        <input type='text' placeholder='Digite o que você procura' value={this.state.valueBusca} onChange={this.mudaValueBusca}/>
+        <input type='text' placeholder='Digite o valor mínimo' value={this.state.valueValorMin} onChange={this.mudaValueValorMin}/>
+        <input type='text' placeholder='Digite o valor máximo' value={this.state.valueValorMax} onChange={this.mudaValueValorMax}/>
+      </FiltroContainer>
+    );
+  }
 }
 
 export default Filtro;

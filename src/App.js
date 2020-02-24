@@ -28,8 +28,30 @@ const TituloLogo = styled.h3`
   margin: 0;
 `
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      // Recebendo info Filtro
+      filtroBusca: '',
+      filtroValorMax: '',
+      filtroValorMin: '',
+    }
+  }
 
+  //Recebendo info filtro
+  atualizaFiltro = (nomeFiltro, valorFiltro) => {
+    if (nomeFiltro === 'novoValorBusca') {
+      this.setState({ filtroBusca: valorFiltro })
+    } else if (nomeFiltro === 'novoValorMax') {
+      this.setState({ filtroValorMax: valorFiltro })
+    } else if (nomeFiltro === 'novoValorMin') {
+      this.setState({ filtroValorMin: valorFiltro })
+    }
+  }
+
+
+  render() {
     return (
       <Container>
 
@@ -40,19 +62,27 @@ function App() {
             <TituloLogo>Shop</TituloLogo>
           </DivTitulo>
 
-          <Filtro />
-          
+          <Filtro
+            //Recebendo info filtro
+            aoMudarFiltro={this.atualizaFiltro}
+          />
+
         </Header>
 
         <Main>
-          <Home />
+          <Home
+            // MANDANDO info filtro
+            mudouFiltroBusca={this.state.filtroBusca}
+            mudouFiltroMin={this.state.filtroValorMin}
+            mudouFiltroMax={this.state.filtroValorMax}
+          />
         </Main>
 
         <Footer />
 
       </Container>
     );
-
+  }
 }
 
 export default App;

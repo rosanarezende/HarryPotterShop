@@ -87,17 +87,41 @@ class Home extends React.Component {
     super(props)
     this.state = {
       estadoCarrinho: false,
-      ordem: "crescente"
+      ordem: "crescente",
+      carrinho: []
     }
 
   }
 
   apareceDesapareceCarrinho = () => {
-    this.setState({estadoCarrinho: !this.state.estadoCarrinho})
+    this.setState({ estadoCarrinho: !this.state.estadoCarrinho })
   }
 
   mudaSeletor = (event) => {
-    this.setState({ordem: event.target.value})
+    this.setState({ ordem: event.target.value })
+  }
+
+  adicionaProduto = (produtoAdicionado) => {
+    const copiaCarrinho = [...this.state.carrinho]
+    
+    // checo se o produto tá no carrinho
+    const produtoEstaNoCarrinho = this.state.carrinho.findIndex(cadaProduto =>
+      cadaProduto.produtoAdicionado.id === produtoAdicionado.id)
+
+    // se já tá no carrinho, só adiciono 1 na quantidade (paramentro novo que to criando)
+    if (produtoEstaNoCarrinho > -1) {
+      copiaCarrinho[produtoEstaNoCarrinho].quantidade += 1
+    } else { // se é a primeira vez
+      copiaCarrinho.push(
+        { produtoAdicionado: produtoAdicionado,
+          quantidade: 1 }
+      )
+    }
+
+    this.setState({
+      carrinho: copiaCarrinho, // atualiza conteudo do carrinho no estado
+      estadoCarrinho: true //fazer carrinho aparecer
+    })
   }
 
   render() {
@@ -113,52 +137,124 @@ class Home extends React.Component {
       })
     }
 
-    const listaCadaItem = listaOrdenada.map(cadaProduto => {
+    const listaNaoFiltrada = listaOrdenada.map(cadaProduto => {
       return (
         <DivCadaProduto key={cadaProduto.id}>
-          <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name}/>
+          <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} />
           <p>{cadaProduto.name}</p>
           <div>
             <ValorSemDesconto>R$ {parseFloat(cadaProduto.value).toFixed(2)}</ValorSemDesconto><span>  </span>
             <SpanDesconto>-5%</SpanDesconto>
-            <p>R$ {parseFloat(cadaProduto.value * 0.95).toFixed(2)}</p>            
-            <BotaoAdiciona>Adicionar ao carrinho</BotaoAdiciona>
+            <p>R$ {parseFloat(cadaProduto.value * 0.95).toFixed(2)}</p>
+            <BotaoAdiciona onClick={() => this.adicionaProduto(cadaProduto)}>Adicionar ao carrinho</BotaoAdiciona>
           </div>
-          
+
         </DivCadaProduto>
       )
-    })    
+    })
 
-  
+    // RECEBE FILTRO
+    // this.props.mudouFiltroBusca
+    // this.props.mudouFiltroMin
+    // this.props.mudouFiltroMax
+    const listaFiltrada = listaOrdenada.filter(cadaProduto => {
+      let filtroBusca = this.props.mudouFiltroBusca
+      let filtroMin = this.props.mudouFiltroMin
+      let filtroMax = this.props.mudouFiltroMax
+
+      if (filtroBusca && filtroMin && filtroMax) {
+        return (
+          cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase()) &&
+          cadaProduto.value >= filtroMin &&
+          cadaProduto.value <= filtroMax
+        )
+      }
+      if (filtroBusca && filtroMin) {
+        return (
+          cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase()) &&
+          cadaProduto.value >= filtroMin
+        )
+      }
+      if (filtroBusca && filtroMax) {
+        return (
+          cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase()) &&
+          cadaProduto.value <= filtroMax
+        )
+      }
+      if (filtroMin && filtroMax) {
+        return (
+          cadaProduto.value >= filtroMin &&
+          cadaProduto.value <= filtroMax)
+      }
+      if (filtroBusca) {
+        return cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase())
+      }
+      if (filtroMin) {
+        return cadaProduto.value >= filtroMin
+      }
+      if (filtroMax) {
+        return cadaProduto.value <= filtroMax
+      }
+      return listaNaoFiltrada
+    }).map(cadaProduto => {
+      return (
+        <DivCadaProduto key={cadaProduto.id}>
+          <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} />
+          <p>{cadaProduto.name}</p>
+          <div>
+            <ValorSemDesconto>R$ {parseFloat(cadaProduto.value).toFixed(2)}</ValorSemDesconto><span>  </span>
+            <SpanDesconto>-5%</SpanDesconto>
+            <p>R$ {parseFloat(cadaProduto.value * 0.95).toFixed(2)}</p>
+            <BotaoAdiciona onClick={() => this.adicionaProduto(cadaProduto)}>Adicionar ao carrinho</BotaoAdiciona>
+          </div>
+
+        </DivCadaProduto>
+      )
+    })
+
+
+    let listaDeItens
+    if (this.props.mudouFiltroBusca || this.props.mudouFiltroMin || this.props.mudouFiltroMax) {
+      listaDeItens = listaFiltrada
+    } else {
+      listaDeItens = listaNaoFiltrada
+    }
+
+
+
     return (
-    <HomeContainer>
+      <HomeContainer>
 
-      <DivHomeSuperior>
-       
-        <span>Quantidade de produtos: {listaCadaItem.length}</span>
-        
-        <select onChange={this.mudaSeletor} value={this.state.ordem}>
-          <option value='crescente'>Preço: Crescente</option>
-          <option value='decrescente'>Preço: Decrescente</option>
-        </select>
+        <DivHomeSuperior>
 
-      </DivHomeSuperior>
+          <span>Quantidade de produtos: {listaDeItens.length}</span>
 
-      <DivHomeInferior>
-          {this.state.estadoCarrinho && <Carrinho/>}
-        <DivProdutos>
-          {listaCadaItem}
-        </DivProdutos>
-        
-        
-      </DivHomeInferior>
+          <select onChange={this.mudaSeletor} value={this.state.ordem}>
+            <option value='crescente'>Preço: Crescente</option>
+            <option value='decrescente'>Preço: Decrescente</option>
+          </select>
 
-      <BotaoCarrinho onClick={this.apareceDesapareceCarrinho}> 
-        <i className="material-icons">shopping_cart</i>
-      </BotaoCarrinho>
+        </DivHomeSuperior>
 
-    </HomeContainer>
-  );
+        <DivHomeInferior>
+          
+          {this.state.estadoCarrinho && 
+          <Carrinho itensNoCarrinho={this.state.carrinho} // enviei info pro carrinho
+          />}
+
+          <DivProdutos>
+            {listaDeItens}
+          </DivProdutos>
+
+        </DivHomeInferior>
+
+        <BotaoCarrinho
+          onClick={this.apareceDesapareceCarrinho}
+        ><i className="material-icons">shopping_cart</i>
+        </BotaoCarrinho>
+
+      </HomeContainer>
+    );
   }
 }
 
