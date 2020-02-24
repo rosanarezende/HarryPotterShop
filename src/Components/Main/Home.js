@@ -65,6 +65,7 @@ const BotaoAdiciona = styled.button`
   background-color: #a04d6b;
   padding: 1vh 1vw;
   outline: 0;
+  width: 100%;
 `
 
 const ValorSemDesconto = styled.span`
@@ -77,6 +78,29 @@ const SpanDesconto = styled.span`
   padding: 0.5vh 0.5vw;
 `
 
+const DivProdutoRenderizado = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1vh 1vw;
+  padding: 1vh 1vw;
+  border: 1px rgb(97, 46, 65) double;
+  height: 50%;
+
+`
+
+const DivBotaoExcluiRenderizacao = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  padding-bottom: 1vh;
+
+  cursor: pointer;
+    transition: 0.2s;
+    
+  :hover {
+      color: red;
+  }
+`
 
 const listaDeProdutos = LISTADEPRODUTOS
 
@@ -88,10 +112,32 @@ class Home extends React.Component {
     this.state = {
       estadoCarrinho: false,
       ordem: "crescente",
-      carrinho: []
-    }
+      carrinho: [],
 
+      // RENDERIZAR
+      produtoRenderizado: null,
+    }
   }
+
+  ////////////////////////////////
+  // GUARDAR NO ESTADO
+  componentDidMount() {
+    const noEstadodoCarrinho = localStorage.getItem('carrinho')
+    const novoEstado = JSON.parse(noEstadodoCarrinho)
+    if (novoEstado.id === undefined) {
+      this.setState({ carrinho: novoEstado })
+    } 
+    // if (novoEstado) {
+    //   this.setState({ carrinho: novoEstado })
+    // }
+  }
+
+  componentDidUpdate() {
+    const estadoComoString = JSON.stringify(this.state.carrinho)
+    localStorage.setItem('carrinho', estadoComoString)
+  }
+  ////////////////////////////////
+
 
   apareceDesapareceCarrinho = () => {
     this.setState({ estadoCarrinho: !this.state.estadoCarrinho })
@@ -103,7 +149,7 @@ class Home extends React.Component {
 
   adicionaProduto = (produtoAdicionado) => {
     const copiaCarrinho = [...this.state.carrinho]
-    
+
     // checo se o produto tá no carrinho
     const produtoEstaNoCarrinho = this.state.carrinho.findIndex(cadaProduto =>
       cadaProduto.produtoAdicionado.id === produtoAdicionado.id)
@@ -112,10 +158,10 @@ class Home extends React.Component {
     if (produtoEstaNoCarrinho > -1) {
       copiaCarrinho[produtoEstaNoCarrinho].quantidade += 1
     } else { // se é a primeira vez
-      copiaCarrinho.push(
-        { produtoAdicionado: produtoAdicionado,
-          quantidade: 1 }
-      )
+      copiaCarrinho.push({ 
+        produtoAdicionado: produtoAdicionado,
+        quantidade: 1 
+      })
     }
 
     this.setState({
@@ -123,6 +169,75 @@ class Home extends React.Component {
       estadoCarrinho: true //fazer carrinho aparecer
     })
   }
+
+  excluiProdutoDoCarrinho = (produtoAdicionado) => {
+    const copiaCarrinho = [...this.state.carrinho]
+    const produtoEstaNoCarrinho = this.state.carrinho.findIndex(cadaProduto =>
+      cadaProduto.produtoAdicionado.id === produtoAdicionado.id)   
+    copiaCarrinho.splice(produtoEstaNoCarrinho, 1)
+    this.setState({carrinho: copiaCarrinho})
+
+  }
+
+  maisProdutoDoCarrinho = (produtoAdicionado) => {
+    const copiaCarrinho = [...this.state.carrinho]
+    const produtoEstaNoCarrinho = this.state.carrinho.findIndex(cadaProduto =>
+      cadaProduto.produtoAdicionado.id === produtoAdicionado.id)
+    copiaCarrinho[produtoEstaNoCarrinho].quantidade += 1
+    this.setState({carrinho: copiaCarrinho})
+  }
+
+  menosProdutoDoCarrinho = (produtoAdicionado) => {
+    const copiaCarrinho = [...this.state.carrinho]
+    const produtoEstaNoCarrinho = this.state.carrinho.findIndex(cadaProduto =>
+      cadaProduto.produtoAdicionado.id === produtoAdicionado.id)
+    if (copiaCarrinho[produtoEstaNoCarrinho].quantidade > 1) { // para em zero
+      copiaCarrinho[produtoEstaNoCarrinho].quantidade -= 1
+    }    
+    this.setState({carrinho: copiaCarrinho})
+  }
+
+
+
+  // RENDERIZAR
+  renderizaProduto = (produtoClicado) => {
+    // console.log('renderiza', produtoClicado.name)
+    this.setState({
+      produtoRenderizado: produtoClicado
+    }) 
+  }
+
+  naoRenderizaProduto = () => {
+    this.setState({
+      produtoRenderizado: null
+    }) 
+  }
+
+  renderizaProdutoNaTela = (produtoClicado) => {
+    if(this.state.produtoRenderizado !== null) {
+      return (
+        <DivProdutoRenderizado>
+          <DivBotaoExcluiRenderizacao>
+            <i className="material-icons" onClick={() => this.naoRenderizaProduto()}>close</i>
+          </DivBotaoExcluiRenderizacao>
+          <ImagemProduto src={produtoClicado.imageUrl} alt={produtoClicado.name}/>
+          <p>{produtoClicado.name}</p>
+          <div>
+            <ValorSemDesconto>R$ {parseFloat(produtoClicado.value).toFixed(2)}</ValorSemDesconto><span>  </span>
+            <SpanDesconto>-5%</SpanDesconto>
+            <p>R$ {parseFloat(produtoClicado.value * 0.95).toFixed(2)}</p>
+            <BotaoAdiciona onClick={() => this.adicionaProduto(produtoClicado)}>Adicionar ao carrinho</BotaoAdiciona>
+          </div>
+        </DivProdutoRenderizado>
+      )
+    } else {
+      return (
+        <div></div>
+      )
+    }
+  }
+
+
 
   render() {
 
@@ -140,7 +255,7 @@ class Home extends React.Component {
     const listaNaoFiltrada = listaOrdenada.map(cadaProduto => {
       return (
         <DivCadaProduto key={cadaProduto.id}>
-          <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} />
+          <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} onClick={() => this.renderizaProduto(cadaProduto)}/>
           <p>{cadaProduto.name}</p>
           <div>
             <ValorSemDesconto>R$ {parseFloat(cadaProduto.value).toFixed(2)}</ValorSemDesconto><span>  </span>
@@ -154,14 +269,11 @@ class Home extends React.Component {
     })
 
     // RECEBE FILTRO
-    // this.props.mudouFiltroBusca
-    // this.props.mudouFiltroMin
-    // this.props.mudouFiltroMax
+    // this.props.mudouFiltroBusca // this.props.mudouFiltroMin // this.props.mudouFiltroMax
     const listaFiltrada = listaOrdenada.filter(cadaProduto => {
       let filtroBusca = this.props.mudouFiltroBusca
       let filtroMin = this.props.mudouFiltroMin
       let filtroMax = this.props.mudouFiltroMax
-
       if (filtroBusca && filtroMin && filtroMax) {
         return (
           cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase()) &&
@@ -185,7 +297,7 @@ class Home extends React.Component {
         return (
           cadaProduto.value >= filtroMin &&
           cadaProduto.value <= filtroMax)
-      }
+      }      
       if (filtroBusca) {
         return cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase())
       }
@@ -199,7 +311,7 @@ class Home extends React.Component {
     }).map(cadaProduto => {
       return (
         <DivCadaProduto key={cadaProduto.id}>
-          <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} />
+          <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} onClick={() => this.renderizaProduto(cadaProduto)}/>
           <p>{cadaProduto.name}</p>
           <div>
             <ValorSemDesconto>R$ {parseFloat(cadaProduto.value).toFixed(2)}</ValorSemDesconto><span>  </span>
@@ -221,7 +333,6 @@ class Home extends React.Component {
     }
 
 
-
     return (
       <HomeContainer>
 
@@ -239,8 +350,15 @@ class Home extends React.Component {
         <DivHomeInferior>
           
           {this.state.estadoCarrinho && 
-          <Carrinho itensNoCarrinho={this.state.carrinho} // enviei info pro carrinho
+          <Carrinho 
+            itensNoCarrinho={this.state.carrinho} // enviei info pro carrinho
+            excluiProdutoDoCarrinho={this.excluiProdutoDoCarrinho}
+            maisProdutoDoCarrinho={this.maisProdutoDoCarrinho}
+            menosProdutoDoCarrinho={this.menosProdutoDoCarrinho}
           />}
+
+          {/* RENDERIZAR */}
+          {this.renderizaProdutoNaTela(this.state.produtoRenderizado)}
 
           <DivProdutos>
             {listaDeItens}
