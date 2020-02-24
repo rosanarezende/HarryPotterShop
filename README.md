@@ -1,68 +1,64 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Future4 | Full-Stack Web Development Bootcamp
+Desenvolvimento de aplicações completas, incluindo frontend Web com React e backend com Node.js.
 
-## Available Scripts
+<p align="center">
+  <img  width='500' src='https://user-images.githubusercontent.com/45580434/74607837-f69f5e00-50ba-11ea-97e0-62fab855bcb6.png'>
+</p>
 
-In the project directory, you can run:
+## Projeto: FutureForms
 
-### `yarn start`
+[Site do projeto](http://futureforms-rosana1.surge.sh/)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![futureforms](https://user-images.githubusercontent.com/45580434/74693970-df509580-51cc-11ea-8bac-2bbb96aaef8d.gif)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+**Desenvolvido por:** [Rosana Rezende](https://www.linkedin.com/in/rosanarezende/)
+<br>
 
-### `yarn test`
+### Escopo do projeto
+Criar concorrente para o GoogleForms, implementando um formulário de processo seletivo com várias etapas, cuja ordem depende das respostas dadas pelos usuário.
+<br><br>
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+#### Requisitos obrigatórios
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+[x] *ETAPA 1: Dados gerais*
+1. Nome [pergunta aberta]
+2. Idade [pergunta aberta]
+3. Email [pergunta aberta]
+4. Qual o grau de escolaridade [pergunta com seleção]
+    - Ensino Médio Incompleto
+    - Ensino Médio Completo
+    - Ensino Superior Incompleto
+    - Ensino Superior Completo
+<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[x] *ETAPA 2: Informações educacionais para quem está cursando (ou já terminou) o ensino superior*
+1. Qual o curso? [pergunta aberta]
+2. Qual a unidade de ensino? [pergunta aberta]
+<br>
 
-### `yarn eject`
+[x] *ETAPA 3: Informações sobre quem não se formou no ensino superior nem está cursando*
+1. Por que você não terminou um curso de graduação? [pergunta aberta]
+2. Você fez algum curso complementar? [pergunta com seleção]
+    - Curso técnico
+    - Cursos de inglês
+    - Não fiz curso complementar
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[x] *ETAPA FINAL: O formulário acabou*
+1. Deve conter alguma frase agradecendo ao usuário por ter respondido o formulário.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<br><br>
+#### Desafios
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[x] 1. *O usuário só deve responder a Etapa 2, se ele tiver respondido "Ensino Superior Completo" ou "Ensino Superior Incompleto" (na pergunta 4 da etapa 1); e a etapa 3, se a resposta for "Ensino Médio Completo" ou "Ensino Médio Incompleto".*
+<br>
 
-## Learn More
+[x] 2. *Faça com que o usuário não consiga prosseguir para a próxima etapa até que todas as perguntas da etapa atual estejam respondidas. Mostre um alert com a mensagem "Você deve preencher todas as perguntas antes de continuar"*
+<br>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[] 3. *Faça com que só algumas perguntas sejam obrigatórias. Se o usuário não a preencher, um erro deve ser mostrado acima da pergunta, indicando que deve ser preenchida. O usuário não pode prosseguir nas etapas até que todas as perguntas obrigatórias da etapa atual estejam respondidas. Mantenha o alert que pedimos no item anterior.*
+<br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
