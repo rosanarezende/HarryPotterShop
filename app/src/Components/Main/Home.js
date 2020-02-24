@@ -41,13 +41,14 @@ const DivProdutos = styled.div`
   padding: 1vh 1vw;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `
 
 const DivCadaProduto = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 10vw;
+  width: 12vw;
   margin: 1vh 0.5vw;
   padding: 1vh 0.5vw;
   border: 1px rgb(97, 46, 65) double;
@@ -61,6 +62,8 @@ const DivCadaProduto = styled.div`
 
 const ImagemProduto = styled.img`
   width: 100%;
+  cursor: pointer;
+  transition: 0.2s;
 `
 
 const BotaoAdiciona = styled.button`
@@ -84,11 +87,19 @@ const DivProdutoRenderizado = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* margin: 1vh 1vw; */
-  padding: 1vh 1vw;
+  padding: 0.5vh 2vw;
   border: 1px rgb(97, 46, 65) double;
-  height: 50%;
+  width: 30vw;
 
+  @media screen and (max-device-width: 1200px) {
+    width: 94vw;
+  }
+`
+
+const DivAbraca = styled.div``
+
+const ImagemProdutoRenderizada = styled.img`
+  width: 100%;
 `
 
 const DivBotaoExcluiRenderizacao = styled.div`
@@ -121,24 +132,20 @@ class Home extends React.Component {
     }
   }
 
-  ////////////////////////////////
-  // GUARDAR NO ESTADO
-  // componentDidMount() {
-  //   const noEstadodoCarrinho = localStorage.getItem('carrinho')
-  //   const novoEstado = JSON.parse(noEstadodoCarrinho)
-  //   if (novoEstado.id === undefined) {
-  //     this.setState({ carrinho: novoEstado })
-  //   } 
-  //   // if (novoEstado) {
-  //   //   this.setState({ carrinho: novoEstado })
-  //   // }
-  // }
+  /////////////// GUARDAR NO ESTADO /////////////////
+  componentDidMount() {
+    const noEstadodoCarrinho = localStorage.getItem('carrinho')
+    const novoEstado = JSON.parse(noEstadodoCarrinho)
+    if (novoEstado) {
+      this.setState({ carrinho: novoEstado })
+    }
+  }
 
-  // componentDidUpdate() {
-  //   const estadoComoString = JSON.stringify(this.state.carrinho)
-  //   localStorage.setItem('carrinho', estadoComoString)
-  // }
-  ////////////////////////////////
+  componentDidUpdate() {
+    const estadoComoString = JSON.stringify(this.state.carrinho)
+    localStorage.setItem('carrinho', estadoComoString)
+  }
+  ////////////////////////////////////////////////////
 
 
   apareceDesapareceCarrinho = () => {
@@ -222,13 +229,14 @@ class Home extends React.Component {
           <DivBotaoExcluiRenderizacao>
             <i className="material-icons" onClick={() => this.naoRenderizaProduto()}>close</i>
           </DivBotaoExcluiRenderizacao>
-          <ImagemProduto src={produtoClicado.imageUrl} alt={produtoClicado.name}/>
+          <ImagemProdutoRenderizada src={produtoClicado.imageUrl} alt={produtoClicado.name}/>
           <p>{produtoClicado.name}</p>
           <div>
             <ValorSemDesconto>R$ {parseFloat(produtoClicado.value).toFixed(2)}</ValorSemDesconto><span>  </span>
             <SpanDesconto>-5%</SpanDesconto>
             <p>R$ {parseFloat(produtoClicado.value * 0.95).toFixed(2)}</p>
             <BotaoAdiciona onClick={() => this.adicionaProduto(produtoClicado)}>Adicionar ao carrinho</BotaoAdiciona>
+            <p>{produtoClicado.descricao}</p>
           </div>
         </DivProdutoRenderizado>
       )
@@ -359,9 +367,11 @@ class Home extends React.Component {
             menosProdutoDoCarrinho={this.menosProdutoDoCarrinho}
           />}
 
-          {/* RENDERIZAR */}
-          {this.renderizaProdutoNaTela(this.state.produtoRenderizado)}
-
+          <DivAbraca>
+            {/* RENDERIZAR */}
+            {this.renderizaProdutoNaTela(this.state.produtoRenderizado)}
+          </DivAbraca>
+            
           <DivProdutos>
             {listaDeItens}
           </DivProdutos>
