@@ -32,7 +32,7 @@ const BotaoCarrinho = styled.button`
   right: 0;
   margin-right: 1vw;
   background-color: #a04d6b;
-  padding: 10px;
+  padding: 08px;
   border-radius: 50%;
   outline: 0;
 `
@@ -47,13 +47,15 @@ const DivCadaProduto = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 14vw;
-  margin: 1vh 1vw;
-  padding: 1vh 1vw;
+  width: 10vw;
+  margin: 1vh 0.5vw;
+  padding: 1vh 0.5vw;
   border: 1px rgb(97, 46, 65) double;
 
   @media screen and (max-device-width: 1200px) {
     width: 27vw;
+    margin: 0.5vh 1vw;
+    padding: 0.5vh 1vw;
   }
 `
 
@@ -82,7 +84,7 @@ const DivProdutoRenderizado = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 1vh 1vw;
+  /* margin: 1vh 1vw; */
   padding: 1vh 1vw;
   border: 1px rgb(97, 46, 65) double;
   height: 50%;
@@ -121,21 +123,21 @@ class Home extends React.Component {
 
   ////////////////////////////////
   // GUARDAR NO ESTADO
-  componentDidMount() {
-    const noEstadodoCarrinho = localStorage.getItem('carrinho')
-    const novoEstado = JSON.parse(noEstadodoCarrinho)
-    if (novoEstado.id === undefined) {
-      this.setState({ carrinho: novoEstado })
-    } 
-    // if (novoEstado) {
-    //   this.setState({ carrinho: novoEstado })
-    // }
-  }
+  // componentDidMount() {
+  //   const noEstadodoCarrinho = localStorage.getItem('carrinho')
+  //   const novoEstado = JSON.parse(noEstadodoCarrinho)
+  //   if (novoEstado.id === undefined) {
+  //     this.setState({ carrinho: novoEstado })
+  //   } 
+  //   // if (novoEstado) {
+  //   //   this.setState({ carrinho: novoEstado })
+  //   // }
+  // }
 
-  componentDidUpdate() {
-    const estadoComoString = JSON.stringify(this.state.carrinho)
-    localStorage.setItem('carrinho', estadoComoString)
-  }
+  // componentDidUpdate() {
+  //   const estadoComoString = JSON.stringify(this.state.carrinho)
+  //   localStorage.setItem('carrinho', estadoComoString)
+  // }
   ////////////////////////////////
 
 

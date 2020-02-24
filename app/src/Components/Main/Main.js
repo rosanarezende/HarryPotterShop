@@ -3,14 +3,14 @@ import styled from 'styled-components'
 
 const MainContainer = styled.div`
     /* position: fixed; */
-    margin-top: 7vh;
+    margin-top: 8vh;
     
   @media screen and (max-device-width: 1200px) {
-    margin-top: 10vh;
+    margin-top: 11vh;
   }
 
   @media screen and (max-device-width: 800px) {
-    margin-top: 12vh;
+    margin-top: 13vh;
   }
 
   @media screen and (max-device-width: 400px) {
