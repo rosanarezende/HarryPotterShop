@@ -268,7 +268,7 @@ class Home extends React.Component {
           <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} onClick={() => this.renderizaProduto(cadaProduto)}/>
           <p>{cadaProduto.name}</p>
           <div>
-            <ValorSemDesconto>R$ {parseFloat(cadaProduto.value).toFixed(2)}</ValorSemDesconto><span>  </span>
+            <ValorSemDesconto> {cadaProduto.value.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</ValorSemDesconto><span>  </span>
             <SpanDesconto>-5%</SpanDesconto>
             <p> { (cadaProduto.value * 0.95).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</p>
             <BotaoAdiciona onClick={() => this.adicionaProduto(cadaProduto)}>Adicionar ao carrinho</BotaoAdiciona>
@@ -324,7 +324,7 @@ class Home extends React.Component {
           <ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} onClick={() => this.renderizaProduto(cadaProduto)}/>
           <p>{cadaProduto.name}</p>
           <div>
-            <ValorSemDesconto>R$ {parseFloat(cadaProduto.value).toFixed(2)}</ValorSemDesconto><span>  </span>
+            <ValorSemDesconto> {cadaProduto.value.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</ValorSemDesconto><span>  </span>
             <SpanDesconto>-5%</SpanDesconto>
             <p> { (cadaProduto.value * 0.95).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}) }</p>
             <BotaoAdiciona onClick={() => this.adicionaProduto(cadaProduto)}>Adicionar ao carrinho</BotaoAdiciona>
