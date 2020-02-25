@@ -19,7 +19,39 @@ const TituloCarrinho = styled.h3`
   	margin-top: 0;
 `
 
-const ValorTotal = styled.h3``
+const DivItensNoCarrinho = styled.div`
+`
+
+const ValorTotal = styled.h3`
+	margin-top:0;
+`
+
+const ParagrafoSemDesconto = styled.p`
+	margin: 0;
+`
+
+const ValorSemDesconto = styled.span`
+	text-decoration: line-through;
+`
+
+const DivCentralizaBotao = styled.div`
+	display: flex;
+	justify-content: center;
+`
+
+const BotaoDescontoExtra = styled.button`
+	font-weight: bold;
+	width: 80%;
+  	margin: 2vh 0;
+	padding: 1vh 1vw;
+  	background-color: rgb(201, 248, 131);
+  	outline:0;
+  	border-radius: 10px;
+
+	@media screen and (max-device-width: 1200px) {
+		width: 50%;
+  	}
+`
 
 const DivCadaProdutoNoCarrinho = styled.div`
   	display: flex;
@@ -54,6 +86,13 @@ const descontoInicial = DESCONTOINICIAL
 
 class Carrinho extends React.Component {
 
+	constructor(props) {
+		super(props)
+		this.state = {
+			clicouBotaoDesconto: false
+		}
+	}
+
 	mudaProdutosNoCarrinho = () => {
 		return this.props.itensNoCarrinho.map(cadaProduto => {
 			return (
@@ -85,18 +124,53 @@ class Carrinho extends React.Component {
 			prevVal + (cadaProduto.produtoAdicionado.value * descontoInicial * cadaProduto.quantidade), 0)
 	}
 
+	clicarBotaoDesconto = () => {
+		this.setState({clicouBotaoDesconto: !this.state.clicouBotaoDesconto})
+	}
+
 	render() {
 
 		// //podia chamar assim ou construir aqui mesmo
 		// const listaDeProdutosNoCarrinho = this.mudaProdutosNoCarrinho()
 		// const valorTotal = this.valorTotalNoCarrinho()
 
+		const descontoExtra = 0.90
+		
+		const textoBotao = this.state.clicouBotaoDesconto ? 'Não gosto de descontos!' : `Quero +${((1 - descontoExtra) * 100).toFixed()}% de desconto`
+		
+		let valorFinal
+		if (this.state.clicouBotaoDesconto) {
+			valorFinal = (
+				<div>
+				<ParagrafoSemDesconto>Valor anterior: <ValorSemDesconto>{this.valorTotalNoCarrinho().toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorSemDesconto></ParagrafoSemDesconto>
+				<ValorTotal>Valor total: {(this.valorTotalNoCarrinho() * descontoExtra).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorTotal>
+				</div>
+			)
+		} else {
+			valorFinal = (
+				<ValorTotal>Valor total: {this.valorTotalNoCarrinho().toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorTotal>
+			)	
+		}
+
 		return (
 			<CarrinhoContainer>
-				<TituloCarrinho>Carrinho de Compras</TituloCarrinho>
-				{this.mudaProdutosNoCarrinho()}
-				{/* <ValorTotal>Valor total: R$ {parseFloat(this.valorTotalNoCarrinho()).toFixed(2)}</ValorTotal> */}
-				<ValorTotal>Valor total: {this.valorTotalNoCarrinho().toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorTotal>
+				<TituloCarrinho>
+					Carrinho de Compras
+				</TituloCarrinho>
+				
+				<DivItensNoCarrinho>
+					{this.mudaProdutosNoCarrinho()}
+				</DivItensNoCarrinho>
+				
+				<DivCentralizaBotao>
+					<BotaoDescontoExtra onClick={this.clicarBotaoDesconto}>
+						{textoBotao}
+					</BotaoDescontoExtra>
+				</DivCentralizaBotao>
+				
+
+				{valorFinal}
+				
 			</CarrinhoContainer>
 		);
 	}
