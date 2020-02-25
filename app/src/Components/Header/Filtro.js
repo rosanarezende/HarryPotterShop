@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const FiltroContainer = styled.div`
     width: 55vw;
     display: flex;
+    justify-content: center;
     padding: 1.5vh 10vw 1.5vh 5vw;
 
     @media screen and (max-device-width: 1200px) {
@@ -17,7 +18,7 @@ const InputTexto = styled.input`
   margin-left: 1vw;
   
   @media screen and (max-device-width: 1200px) {
-    width: 46vw;
+    width: 47vw;
   }
 
 `
