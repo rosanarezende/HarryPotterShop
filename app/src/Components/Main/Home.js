@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import Carrinho from './Carrinho';
 import { LISTADEPRODUTOS } from '../../Shared/listaDeProdutos';
+import { DESCONTOINICIAL } from '../../Shared/descontoInicial';
 
 const HomeContainer = styled.div`
 	padding: 1vh 1vw;
@@ -116,7 +117,7 @@ const DivBotaoExcluiRenderizacao = styled.div`
 `
 
 const listaDeProdutos = LISTADEPRODUTOS
-
+const descontoInicial = DESCONTOINICIAL
 
 class Home extends React.Component {
 
@@ -234,7 +235,7 @@ class Home extends React.Component {
 					<div>
 						<ValorSemDesconto> {produtoClicado.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorSemDesconto><span>  </span>
 						<SpanDesconto>-5%</SpanDesconto>
-						<p>{(produtoClicado.value * 0.95).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+						<p>{(produtoClicado.value * descontoInicial).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
 						<BotaoAdiciona onClick={() => this.adicionaProduto(produtoClicado)}>Adicionar ao carrinho</BotaoAdiciona>
 						<p>{produtoClicado.descricao}</p>
 					</div>
@@ -269,8 +270,8 @@ class Home extends React.Component {
 					<p>{cadaProduto.name}</p>
 					<div>
 						<ValorSemDesconto> {cadaProduto.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorSemDesconto><span>  </span>
-						<SpanDesconto>-5%</SpanDesconto>
-						<p> {(cadaProduto.value * 0.95).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+						<SpanDesconto>-{((1 - descontoInicial) * 100).toFixed()}%</SpanDesconto>
+						<p> {(cadaProduto.value * descontoInicial).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
 						<BotaoAdiciona onClick={() => this.adicionaProduto(cadaProduto)}>Adicionar ao carrinho</BotaoAdiciona>
 					</div>
 
@@ -284,38 +285,41 @@ class Home extends React.Component {
 			let filtroBusca = this.props.mudouFiltroBusca
 			let filtroMin = this.props.mudouFiltroMin
 			let filtroMax = this.props.mudouFiltroMax
+
+			let valorDoProduto = cadaProduto.value * descontoInicial
+
 			if (filtroBusca && filtroMin && filtroMax) {
 				return (
 					cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase()) &&
-					cadaProduto.value >= filtroMin &&
-					cadaProduto.value <= filtroMax
+					valorDoProduto >= filtroMin &&
+					valorDoProduto <= filtroMax
 				)
 			}
 			if (filtroBusca && filtroMin) {
 				return (
 					cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase()) &&
-					cadaProduto.value >= filtroMin
+					valorDoProduto >= filtroMin
 				)
 			}
 			if (filtroBusca && filtroMax) {
 				return (
 					cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase()) &&
-					cadaProduto.value <= filtroMax
+					valorDoProduto <= filtroMax
 				)
 			}
 			if (filtroMin && filtroMax) {
 				return (
-					cadaProduto.value >= filtroMin &&
-					cadaProduto.value <= filtroMax)
+					valorDoProduto >= filtroMin &&
+					valorDoProduto <= filtroMax)
 			}
 			if (filtroBusca) {
 				return cadaProduto.name.toLowerCase().includes((filtroBusca).toLowerCase())
 			}
 			if (filtroMin) {
-				return cadaProduto.value >= filtroMin
+				return valorDoProduto >= filtroMin
 			}
 			if (filtroMax) {
-				return cadaProduto.value <= filtroMax
+				return valorDoProduto <= filtroMax
 			}
 			return listaNaoFiltrada
 		}).map(cadaProduto => {
@@ -326,7 +330,7 @@ class Home extends React.Component {
 					<div>
 						<ValorSemDesconto> {cadaProduto.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorSemDesconto><span>  </span>
 						<SpanDesconto>-5%</SpanDesconto>
-						<p> {(cadaProduto.value * 0.95).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+						<p> {(cadaProduto.value * descontoInicial).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
 						<BotaoAdiciona onClick={() => this.adicionaProduto(cadaProduto)}>Adicionar ao carrinho</BotaoAdiciona>
 					</div>
 

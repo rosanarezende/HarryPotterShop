@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import { DESCONTOINICIAL } from '../../Shared/descontoInicial';
 
 const CarrinhoContainer = styled.div`
 	width: 30vw;
@@ -49,6 +50,8 @@ const BotaoCarrinho = styled.button`
   	border-radius: 10px;
 `
 
+const descontoInicial = DESCONTOINICIAL
+
 class Carrinho extends React.Component {
 
 	mudaProdutosNoCarrinho = () => {
@@ -57,7 +60,7 @@ class Carrinho extends React.Component {
 				<DivCadaProdutoNoCarrinho key={cadaProduto.produtoAdicionado.id}>
 					<DivInternaSuperior>
 						<span>{cadaProduto.quantidade}x <TextoItalico>{cadaProduto.produtoAdicionado.name}</TextoItalico></span>
-						<span> {(cadaProduto.produtoAdicionado.value * 0.95 * cadaProduto.quantidade).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+						<span> {(cadaProduto.produtoAdicionado.value * descontoInicial * cadaProduto.quantidade).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
 					</DivInternaSuperior>
 
 					<DivInternaInferior>
@@ -79,7 +82,7 @@ class Carrinho extends React.Component {
 
 	valorTotalNoCarrinho = () => {
 		return this.props.itensNoCarrinho.reduce((prevVal, cadaProduto) =>
-			prevVal + (cadaProduto.produtoAdicionado.value * 0.95 * cadaProduto.quantidade), 0)
+			prevVal + (cadaProduto.produtoAdicionado.value * descontoInicial * cadaProduto.quantidade), 0)
 	}
 
 	render() {
