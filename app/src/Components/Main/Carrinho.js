@@ -57,7 +57,7 @@ class Carrinho extends React.Component {
         <DivCadaProdutoNoCarrinho key={cadaProduto.produtoAdicionado.id}>
           <DivInternaSuperior>
             <span>{cadaProduto.quantidade}x <TextoItalico>{cadaProduto.produtoAdicionado.name}</TextoItalico></span>
-            <span>R$ { parseFloat(cadaProduto.produtoAdicionado.value * 0.95 * cadaProduto.quantidade).toFixed(2) }</span>
+            <span> { (cadaProduto.produtoAdicionado.value * 0.95 * cadaProduto.quantidade).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}) }</span>
           </DivInternaSuperior>
           
           <DivInternaInferior>
@@ -92,7 +92,8 @@ class Carrinho extends React.Component {
       <CarrinhoContainer>
         <TituloCarrinho>Carrinho de Compras</TituloCarrinho>
         {this.mudaProdutosNoCarrinho()}
-        <ValorTotal>Valor total: R$ {parseFloat(this.valorTotalNoCarrinho()).toFixed(2)}</ValorTotal>
+        {/* <ValorTotal>Valor total: R$ {parseFloat(this.valorTotalNoCarrinho()).toFixed(2)}</ValorTotal> */}
+        <ValorTotal>Valor total: {this.valorTotalNoCarrinho().toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</ValorTotal>
       </CarrinhoContainer>
     );
   }

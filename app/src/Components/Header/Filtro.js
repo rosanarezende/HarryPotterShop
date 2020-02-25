@@ -2,17 +2,34 @@ import React from 'react';
 import styled from 'styled-components'
 
 const FiltroContainer = styled.div`
-    width: 50vw;
+    width: 55vw;
     display: flex;
-    justify-content: space-between;
-    padding: 1.5vh 10vw 1.5vh 10vw;
+    padding: 1.5vh 10vw 1.5vh 5vw;
 
     @media screen and (max-device-width: 1200px) {
       flex-wrap:wrap;
-      width: 40vw;
-      padding: 0.5vh 10vw 0.5vh 10vw;
+      padding: 0.5vh 1vw 0.5vh 1vw;
     }
 `
+
+const InputTexto = styled.input`
+  width: 40vw;
+  margin-left: 1vw;
+  
+  @media screen and (max-device-width: 1200px) {
+    width: 46vw;
+  }
+
+`
+const InputNumero = styled.input`
+  width: 15vw;
+  margin-left: 1vw;
+
+  @media screen and (max-device-width: 1200px) {
+    width: 22vw;
+  }
+`
+
 
 class Filtro extends React.Component {
   constructor(props) {
@@ -45,9 +62,9 @@ class Filtro extends React.Component {
   render() {
     return (
       <FiltroContainer>
-        <input type='text' placeholder='Digite o que você procura' value={this.state.valueBusca} onChange={this.mudaValueBusca}/>
-        <input type='text' placeholder='Digite o valor mínimo' value={this.state.valueValorMin} onChange={this.mudaValueValorMin}/>
-        <input type='text' placeholder='Digite o valor máximo' value={this.state.valueValorMax} onChange={this.mudaValueValorMax}/>
+        <InputTexto type='text' placeholder='O que você procura?' value={this.state.valueBusca} onChange={this.mudaValueBusca}/>
+        <InputNumero type='text' placeholder='Valor mínimo' value={this.state.valueValorMin} onChange={this.mudaValueValorMin}/>
+        <InputNumero type='text' placeholder='Valor máximo' value={this.state.valueValorMax} onChange={this.mudaValueValorMax}/>
       </FiltroContainer>
     );
   }
