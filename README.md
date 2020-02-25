@@ -1,6 +1,6 @@
 # Projeto: Harry Potter Shop
 
-[Site do projeto](http://hp-shop1.surge.sh/)
+[Site do projeto](http://ad-knife.surge.sh/)
 
 **Desenvolvido por:** [Rosana Rezende](https://www.linkedin.com/in/rosanarezende/)
 <br>
