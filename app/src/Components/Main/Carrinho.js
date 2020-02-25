@@ -167,7 +167,6 @@ class Carrinho extends React.Component {
 						{textoBotao}
 					</BotaoDescontoExtra>
 				</DivCentralizaBotao>
-				
 
 				{valorFinal}
 				
