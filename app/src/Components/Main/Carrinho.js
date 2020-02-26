@@ -46,7 +46,9 @@ const BotaoDescontoExtra = styled.button`
 	padding: 1vh 1vw;
   	background-color: rgb(201, 248, 131);
   	outline:0;
-  	border-radius: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+	:hover {color: #a04d6b;}
 
 	@media screen and (max-device-width: 1200px) {
 		width: 50%;
@@ -79,7 +81,9 @@ const BotaoCarrinho = styled.button`
   	margin-right: 1vh;
   	background-color: #a04d6b;
   	outline:0;
-  	border-radius: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+	:hover {color: whitesmoke;}
 `
 
 const descontoInicial = DESCONTOINICIAL
@@ -134,7 +138,7 @@ class Carrinho extends React.Component {
 		// const listaDeProdutosNoCarrinho = this.mudaProdutosNoCarrinho()
 		// const valorTotal = this.valorTotalNoCarrinho()
 
-		const descontoExtra = 0.90
+		const descontoExtra = 0.90 //10%
 		
 		const textoBotao = this.state.clicouBotaoDesconto ? 'Não gosto de descontos!' : `Quero +${((1 - descontoExtra) * 100).toFixed()}% de desconto`
 		
