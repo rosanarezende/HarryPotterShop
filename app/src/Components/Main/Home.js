@@ -33,9 +33,15 @@ const BotaoCarrinho = styled.button`
 	right: 0;
 	margin-right: 1vw;
 	background-color: #a04d6b;
-	padding: 08px;
+	padding: 10px 08px 05px 08px;
+	/* padding-top: 10px; */
 	border-radius: 50%;
 	outline: 0;
+	cursor: pointer;
+
+	:hover {
+		color: whitesmoke;
+	}
 `
 
 const DivProdutos = styled.div`
@@ -72,6 +78,12 @@ const BotaoAdiciona = styled.button`
 	padding: 1vh 1vw;
 	outline: 0;
 	width: 100%;
+	transition: all 0.2s;
+	cursor: pointer;
+
+	:hover {
+		color: whitesmoke;
+	}
 `
 
 const ValorSemDesconto = styled.span`
