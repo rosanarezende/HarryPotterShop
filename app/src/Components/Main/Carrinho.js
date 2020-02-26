@@ -48,10 +48,7 @@ const BotaoDescontoExtra = styled.button`
   	outline:0;
 	border-radius: 10px;
 	cursor: pointer;
-
-	:hover {
-		color: #a04d6b;
-	}
+	:hover {color: #a04d6b;}
 
 	@media screen and (max-device-width: 1200px) {
 		width: 50%;
@@ -86,10 +83,7 @@ const BotaoCarrinho = styled.button`
   	outline:0;
 	border-radius: 10px;
 	cursor: pointer;
-
-	:hover {
-		color: whitesmoke;
-}
+	:hover {color: whitesmoke;}
 `
 
 const descontoInicial = DESCONTOINICIAL

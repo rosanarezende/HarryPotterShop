@@ -38,9 +38,10 @@ const BotaoCarrinho = styled.button`
 	border-radius: 50%;
 	outline: 0;
 	cursor: pointer;
+	:hover {color: whitesmoke;}
 
-	:hover {
-		color: whitesmoke;
+	@media screen and (max-device-width: 1200px) {
+		:hover {color: black;}
 	}
 `
 
@@ -59,6 +60,7 @@ const DivCadaProduto = styled.div`
 	margin: 1vh 0.5vw;
 	padding: 1vh 0.5vw;
 	border: 1px rgb(97, 46, 65) double;
+	box-shadow: -3px 3px 10px rgba(97, 46, 65, 0.23);
 
 	@media screen and (max-device-width: 1200px) {
 		width: 27vw;
@@ -80,10 +82,8 @@ const BotaoAdiciona = styled.button`
 	width: 100%;
 	transition: all 0.2s;
 	cursor: pointer;
-
-	:hover {
-		color: whitesmoke;
-	}
+	:hover {color: whitesmoke;}
+	box-shadow: -3px 3px 10px rgba(97, 46, 65, 0.23);
 `
 
 const ValorSemDesconto = styled.span`
@@ -103,6 +103,7 @@ const DivProdutoRenderizado = styled.div`
 	padding: 0.5vh 2vw;
 	border: 1px rgb(97, 46, 65) double;
 	width: 30vw;
+	box-shadow: -3px 3px 10px rgba(97, 46, 65, 0.23);
 
 	@media screen and (max-device-width: 1200px) {
 		width: 94vw;
@@ -119,13 +120,9 @@ const DivBotaoExcluiRenderizacao = styled.div`
 	display: flex;
 	flex-direction: row-reverse;
 	padding-bottom: 1vh;
-
 	cursor: pointer;
-		transition: 0.2s;
-		
-	:hover {
-			color: red;
-	}
+	transition: 0.2s;
+	:hover {color: red;}
 `
 
 const listaDeProdutos = LISTADEPRODUTOS
