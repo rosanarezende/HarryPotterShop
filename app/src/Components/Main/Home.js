@@ -77,8 +77,8 @@ const Figure = styled.div`
 
 const ImagemProduto = styled.img`
 	width: 100%;
-	cursor: pointer;
-	transition: 0.2s;
+	/* cursor: pointer;
+	transition: 0.2s; */
 `
 
 const Figcaption = styled.figcaption`
@@ -98,6 +98,7 @@ const Figcaption = styled.figcaption`
 	:hover {
 		opacity: 1;
 	}
+	cursor: pointer;
 `
 
 const BotaoAdiciona = styled.button`
