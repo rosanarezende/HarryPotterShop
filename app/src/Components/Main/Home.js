@@ -69,7 +69,7 @@ const DivCadaProduto = styled.div`
 	}
 `
 
-const Figure = styled.div`
+const Figure = styled.figure`
 	position: relative;
 	margin: 0;
 	padding: 0;
