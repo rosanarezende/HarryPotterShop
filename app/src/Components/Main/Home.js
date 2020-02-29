@@ -69,10 +69,36 @@ const DivCadaProduto = styled.div`
 	}
 `
 
+const Figure = styled.figure`
+	position: relative;
+	margin: 0;
+	padding: 0;
+`
+
 const ImagemProduto = styled.img`
 	width: 100%;
+	/* cursor: pointer;
+	transition: 0.2s; */
+`
+
+const Figcaption = styled.figcaption`
+	position: absolute;
+    top: 0px;
+    background-color: rgba(97, 46, 65, 0.23);
+    color: white;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+        /* isso corrige ele estar passando da bordar */
+    opacity: 0;
+        /* esconde tudo o que fizemos */
+    transition: opacity 1s;
+
+	:hover {
+		opacity: 1;
+	}
 	cursor: pointer;
-	transition: 0.2s;
 `
 
 const BotaoAdiciona = styled.button`
@@ -275,7 +301,12 @@ class Home extends React.Component {
 		const listaNaoFiltrada = listaOrdenada.map(cadaProduto => {
 			return (
 				<DivCadaProduto key={cadaProduto.id}>
-					<ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} onClick={() => this.renderizaProduto(cadaProduto)} />
+					<Figure>
+						<ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} onClick={() => this.renderizaProduto(cadaProduto)} />
+						<Figcaption onClick={() => this.renderizaProduto(cadaProduto)}>
+							Clique para ver detalhes
+						</Figcaption>
+					</Figure>					
 					<p>{cadaProduto.name}</p>
 					<div>
 						<ValorSemDesconto> {cadaProduto.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorSemDesconto><span>  </span>
@@ -334,7 +365,12 @@ class Home extends React.Component {
 		}).map(cadaProduto => {
 			return (
 				<DivCadaProduto key={cadaProduto.id}>
-					<ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} onClick={() => this.renderizaProduto(cadaProduto)} />
+					<Figure>
+						<ImagemProduto src={cadaProduto.imageUrl} alt={cadaProduto.name} onClick={() => this.renderizaProduto(cadaProduto)} />
+						<Figcaption onClick={() => this.renderizaProduto(cadaProduto)}>
+							Clique para ver detalhes
+						</Figcaption>
+					</Figure>
 					<p>{cadaProduto.name}</p>
 					<div>
 						<ValorSemDesconto> {cadaProduto.value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</ValorSemDesconto><span>  </span>
