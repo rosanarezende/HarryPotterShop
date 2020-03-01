@@ -7,4 +7,5 @@
 
 ## Escopo do projeto
 Criar o frontend web de um ECommerce com React.
+
 <br><br>
