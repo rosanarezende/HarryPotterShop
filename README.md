@@ -1,6 +1,6 @@
 # Projeto: Harry Potter Shop
 
-[Site do projeto](http://hpshop3.surge.sh/)
+[Site do projeto](hpshop-rosana.surge.sh)
 
 **Desenvolvido por:** [Rosana Rezende](https://www.linkedin.com/in/rosanarezende/)
 <br>
