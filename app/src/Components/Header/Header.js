@@ -8,6 +8,7 @@ const HeaderContainer = styled.div`
     top: 0;
     left: 0;
     right: 0;
+    box-shadow: -2px 2px 8px rgba(97, 46, 65, 0.3);
 `
 
 const HeaderInterno = styled.div`
