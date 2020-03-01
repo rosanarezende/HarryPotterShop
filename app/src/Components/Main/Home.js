@@ -59,13 +59,13 @@ const DivCadaProduto = styled.div`
 	width: 12vw;
 	margin: 1vh 0.5vw;
 	padding: 1vh 0.5vw;
-	border: 1px rgb(97, 46, 65) double;
-	box-shadow: -3px 3px 10px rgba(97, 46, 65, 0.23);
+	box-shadow: -2px 2px 10px rgba(97, 46, 65, 0.4);
 
 	@media screen and (max-device-width: 1200px) {
 		width: 27vw;
 		margin: 0.5vh 1vw;
 		padding: 0.5vh 1vw;
+		box-shadow: -2px 2px 8px rgba(97, 46, 65, 0.3);
 	}
 `
 
@@ -127,12 +127,12 @@ const DivProdutoRenderizado = styled.div`
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 0.5vh 2vw;
-	border: 1px rgb(97, 46, 65) double;
 	width: 30vw;
-	box-shadow: -3px 3px 10px rgba(97, 46, 65, 0.23);
+	box-shadow: -2px 2px 10px rgba(97, 46, 65, 0.4);
 
 	@media screen and (max-device-width: 1200px) {
 		width: 94vw;
+		box-shadow: -2px 2px 8px rgba(97, 46, 65, 0.3);
 	}
 `
 

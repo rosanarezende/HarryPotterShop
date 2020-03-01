@@ -4,9 +4,9 @@ import { DESCONTOINICIAL } from '../../Shared/descontoInicial';
 
 const CarrinhoContainer = styled.div`
 	width: 30vw;
-	border: 1px solid rgb(97, 46, 65);
   	padding: 1vh 1vw;
   	margin-left: 1vw;
+	box-shadow: -2px 2px 8px rgba(97, 46, 65, 0.3);
 
   	@media screen and (max-device-width: 1200px) {
 		width: 96vw;
