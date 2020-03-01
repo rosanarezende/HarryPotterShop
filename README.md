@@ -1,11 +1,10 @@
 # Projeto: Harry Potter Shop
 
-[Site do projeto](hpshop-rosana.surge.sh)
+[Site do projeto](http://hpshop-rosana.surge.sh/)
 
 **Desenvolvido por:** [Rosana Rezende](https://www.linkedin.com/in/rosanarezende/)
 <br>
 
 ## Escopo do projeto
 Criar o frontend web de um ECommerce com React.
-
 <br><br>
